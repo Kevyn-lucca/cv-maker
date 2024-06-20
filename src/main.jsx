@@ -6,10 +6,10 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<GetInformation
-			Information="Passe seu Pudim"
-			Data1="Pudim1"
-			Data2="Pudim2"
-			Data3="Pudim3"
+			Information="Basic information"
+			Data1="Full name"
+			Data2="Phone number"
+			Data3="E-mail"
 		/>
 	</React.StrictMode>
 );

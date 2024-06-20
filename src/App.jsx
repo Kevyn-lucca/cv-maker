@@ -14,26 +14,43 @@ function GetInformation({ Information, Data1, Data2, Data3 }) {
 
 	return (
 		<>
-			<div className=" ml-8 flex flex-col gap-4">
-				<h3>{Information}</h3>
-				<p>{Data1}</p>
-				<input type="input" id="data1" placeholder={`Digite ${Data1}`} />
-				<p>{Data2}</p>
-				<input type="input" id="data2" placeholder={`Digite ${Data2}`} />
-				<p>{Data3}</p>
-				<input type="input" id="data3" placeholder={`Digite ${Data3}`} />
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl  p-2 "
-					onClick={SetInformation}
-				>
-					Mandar {Information}
-				</button>
-			</div>
-			<div>
-				<h1>{Name}</h1>
-				<h4>
-					{Email} / {Number}
-				</h4>
+			<div className="flex">
+				<div className=" ml-8 flex w-3/12 items-center text-center mt-8 flex-col gap-4">
+					<h3>{Information}</h3>
+					<p>{Data1}</p>
+					<input
+						className="rounded-lg outline-none p-1 bg-slate-200"
+						type="input"
+						id="data1"
+						placeholder={`Digite ${Data1}`}
+					/>
+					<p>{Data2}</p>
+					<input
+						className="rounded-lg outline-none p-1 bg-slate-200"
+						type="input"
+						id="data2"
+						placeholder={`Digite ${Data2}`}
+					/>
+					<p>{Data3}</p>
+					<input
+						className="rounded-lg outline-none p-1 bg-slate-200"
+						type="input"
+						id="data3"
+						placeholder={`Digite ${Data3}`}
+					/>
+					<button
+						className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl  p-2 "
+						onClick={SetInformation}
+					>
+						Send
+					</button>
+				</div>
+				<div>
+					<h1>{Name}</h1>
+					<h4>
+						{Email} {Number}
+					</h4>
+				</div>
 			</div>
 		</>
 	);
