@@ -11,5 +11,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			Data2="Phone number"
 			Data3="E-mail"
 		/>
+		<GetInformation
+			Information="Education"
+			Data1="School"
+			Data2="Major"
+			Data3="Potato school"
+		/>
 	</React.StrictMode>
 );
