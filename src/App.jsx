@@ -4,17 +4,14 @@ import PropTypes from "prop-types";
 /*
 Todos:
 ! em ordem de prioridade
-refatorar o codigo para torna-lo mais reutilizavel (remover ,name, email e number por valores mais genericos)
 resolver o bug que ocasiona na formatação erronea quando existem dois deste componente na root
-criar um valor boolean que quando ativado faça que itens seja adicionados a div na linha 63 ao inves de substituilos
-criar uma função que retornar estilos diferentes
-criar mudança de fonte do curriculo
+Crie um quarto input que adiciiona uma descrição abaixo dos itens
 */
 
-function GetInformation({ Information, Data1, Data2, Data3 }) {
-	const [Name, setName] = useState("");
-	const [Email, setEmail] = useState("");
-	const [Number, setNumber] = useState("");
+function GetInformation({ Information, Data1, Data2, Data3, appendItems }) {
+	const [UserData1, setUserData1] = useState("");
+	const [UserData2, setUserData2] = useState("");
+	const [UserData3, setUserData3] = useState("");
 
 	const data1Ref = useRef(null);
 	const data2Ref = useRef(null);
@@ -22,14 +19,19 @@ function GetInformation({ Information, Data1, Data2, Data3 }) {
 	const TextRef = useRef(null);
 
 	function SetInformation() {
-		setName(data1Ref.current.value);
-		setEmail(data2Ref.current.value);
-		setNumber(data3Ref.current.value);
-		TextRef.current.innerHTML = `${Email}/${Number}`;
+		setUserData1(data1Ref.current.value);
+		setUserData2(data2Ref.current.value);
+		setUserData3(data3Ref.current.value);
+		if (appendItems) {
+			TextRef.current.innerHTML += `<div class ="flex justify-between"> <p>${UserData2}</p> <p>${UserData3}</p> </div>`;
+		} else {
+			TextRef.current.innerHTML = `${UserData2}/${UserData3}`;
+		}
 	}
+
 	return (
 		<>
-			<div className="flex">
+			<div className="flex" style={{ fontFamily: "Arial, sans-serif" }}>
 				<div className="ml-8 flex w-3/12 items-center text-center mt-8 flex-col gap-4">
 					<h3>{Information}</h3>
 					<p>{Data1}</p>
@@ -61,7 +63,7 @@ function GetInformation({ Information, Data1, Data2, Data3 }) {
 					</button>
 				</div>
 				<div className="h-24">
-					<h1 className="text-5xl font-bold">{Name}</h1>
+					<h1 className="text-5xl font-bold">{UserData1}</h1>
 					<p ref={TextRef}></p>
 				</div>
 			</div>
@@ -74,6 +76,11 @@ GetInformation.propTypes = {
 	Data1: PropTypes.string.isRequired,
 	Data2: PropTypes.string.isRequired,
 	Data3: PropTypes.string.isRequired,
+	appendItems: PropTypes.bool,
+};
+
+GetInformation.defaultProps = {
+	appendItems: false,
 };
 
 export default GetInformation;
