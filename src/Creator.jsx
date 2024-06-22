@@ -12,62 +12,49 @@ function GetInformation() {
 	const data2Ref = useRef(null);
 	const data3Ref = useRef(null);
 
-	function handleButtonClick(value) {
+	function DisplayData() {
 		let newItem = null;
+		newItem = {
+			ProcessedData1: data1Ref.current.value,
+			ProcessedData2: data2Ref.current.value,
+			ProcessedData3: data3Ref.current.value,
+			Mode: information,
+		};
+		if (newItem) {
+			setItems([...items, newItem]);
+		}
+	}
 
+	function handleButtonClick(value) {
 		switch (value) {
 			case "Education":
 				setInformation("Education");
 				setData1("School");
 				setData2("Major");
 				setData3("Date");
-				newItem = {
-					ProcessedData1: data1Ref.current.value,
-					ProcessedData2: data2Ref.current.value,
-					ProcessedData3: data3Ref.current.value,
-					Mode: "Education",
-				};
+
 				break;
 			case "Skills":
 				setInformation("Skills");
 				setData1("a major skill");
 				setData2("a major skill");
 				setData3("a major skill");
-				newItem = {
-					ProcessedData1: data1Ref.current.value,
-					ProcessedData2: data2Ref.current.value,
-					ProcessedData3: data3Ref.current.value,
-					Mode: "Skills",
-				};
+
 				break;
 			case "Certificates":
 				setInformation("Certificates");
-				setData1("a certificate with quantifiable work");
-				setData2("a certificate with quantifiable work");
-				setData3("a certificate with quantifiable work");
-				newItem = {
-					ProcessedData1: data1Ref.current.value,
-					ProcessedData2: data2Ref.current.value,
-					ProcessedData3: data3Ref.current.value,
-					Mode: "Certificates",
-				};
+				setData1("a certificate");
+				setData2("a certificate");
+				setData3("a certificate");
+
 				break;
 			default:
 				setInformation("Basic information");
 				setData1("Name");
 				setData2("Linkedin");
 				setData3("E-mail");
-				newItem = {
-					ProcessedData1: data1Ref.current.value,
-					ProcessedData2: data2Ref.current.value,
-					ProcessedData3: data3Ref.current.value,
-					Mode: "",
-				};
-				break;
-		}
 
-		if (newItem) {
-			setItems([...items, newItem]);
+				break;
 		}
 	}
 
@@ -116,6 +103,18 @@ function GetInformation() {
 					onClick={() => handleButtonClick("Skills")}
 				>
 					Add Skills
+				</button>
+				<button
+					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+					onClick={() => handleButtonClick("")}
+				>
+					Basic information
+				</button>
+				<button
+					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+					onClick={DisplayData}
+				>
+					Add to cv
 				</button>
 			</div>
 			<div>

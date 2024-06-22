@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
 export function AddItem({
@@ -8,40 +8,62 @@ export function AddItem({
 	Mode,
 }) {
 	const [content, setContent] = useState("");
+	const [items] = useState([ProcessedData1, ProcessedData2, ProcessedData3]);
 
-	useEffect(() => {
+	const updateContent = useCallback(() => {
 		switch (Mode) {
 			case "Education":
 				setContent(
-					<>
+					<div>
 						<h1>Education</h1>
-						<h2>{ProcessedData1}</h2>
+						<h2>{items[0]}</h2>
 						<div>
-							<p>{ProcessedData2}</p>
-							<p>{ProcessedData3}</p>
+							<p>{items[1]}</p>
+							<p>{items[2]}</p>
 						</div>
-					</>
+						<button onClick={deleteSection}>Delete Section</button>
+					</div>
 				);
 				break;
 			case "Skills":
 				setContent(
-					<>
+					<div>
 						<h1>Skills</h1>
 						<ul>
-							<li>{ProcessedData1}</li>
-							<li>{ProcessedData2}</li>
-							<li>{ProcessedData3}</li>
+							{items.map((item, index) => (
+								<li key={index}>{item}</li>
+							))}
 						</ul>
-					</>
+						<button onClick={deleteSection}>Delete Section</button>
+					</div>
 				);
 				break;
 			default:
-				setContent("");
+				setContent(
+					<div>
+						<h1 className="text-center font-bold text-4xl underline">
+							{items[0]}
+						</h1>
+						<p>
+							{items[1]}/ {items[2]}
+						</p>{" "}
+						<button onClick={deleteSection}>Delete Section</button>
+					</div>
+				);
 		}
-	}, [Mode, ProcessedData1, ProcessedData2, ProcessedData3]);
+	}, [Mode, items]);
+
+	useEffect(() => {
+		updateContent();
+	}, [updateContent]);
+
+	const deleteSection = () => {
+		setContent("");
+	};
 
 	return <div>{content}</div>;
 }
+
 AddItem.propTypes = {
 	Mode: PropTypes.string.isRequired,
 	ProcessedData1: PropTypes.string.isRequired,
