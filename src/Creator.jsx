@@ -1,84 +1,136 @@
 import { useState, useRef } from "react";
-import PropTypes from "prop-types";
 import { AddItem } from "./AddItem";
 
-function GetInformation({ Information, Data1, Data2, Data3 }) {
-	const [UserData1, setUserData1] = useState("");
-	const [UserData2, setUserData2] = useState("");
-	const [UserData3, setUserData3] = useState("");
-	const [BtnValue, setBtnValue] = useState("");
+function GetInformation() {
+	const [information, setInformation] = useState("Basic information");
+	const [data1, setData1] = useState("Name");
+	const [data2, setData2] = useState("Linkedin");
+	const [data3, setData3] = useState("E-mail");
+	const [items, setItems] = useState([]);
 
 	const data1Ref = useRef(null);
 	const data2Ref = useRef(null);
 	const data3Ref = useRef(null);
 
-	function SetInformation() {
-		setUserData1(data1Ref.current.value);
-		setUserData2(data2Ref.current.value);
-		setUserData3(data3Ref.current.value);
-	}
-
 	function handleButtonClick(value) {
-		setBtnValue(value);
+		let newItem = null;
+
+		switch (value) {
+			case "Education":
+				setInformation("Education");
+				setData1("School");
+				setData2("Major");
+				setData3("Date");
+				newItem = {
+					ProcessedData1: data1Ref.current.value,
+					ProcessedData2: data2Ref.current.value,
+					ProcessedData3: data3Ref.current.value,
+					Mode: "Education",
+				};
+				break;
+			case "Skills":
+				setInformation("Skills");
+				setData1("a major skill");
+				setData2("a major skill");
+				setData3("a major skill");
+				newItem = {
+					ProcessedData1: data1Ref.current.value,
+					ProcessedData2: data2Ref.current.value,
+					ProcessedData3: data3Ref.current.value,
+					Mode: "Skills",
+				};
+				break;
+			case "Certificates":
+				setInformation("Certificates");
+				setData1("a certificate with quantifiable work");
+				setData2("a certificate with quantifiable work");
+				setData3("a certificate with quantifiable work");
+				newItem = {
+					ProcessedData1: data1Ref.current.value,
+					ProcessedData2: data2Ref.current.value,
+					ProcessedData3: data3Ref.current.value,
+					Mode: "Certificates",
+				};
+				break;
+			default:
+				setInformation("Basic information");
+				setData1("Name");
+				setData2("Linkedin");
+				setData3("E-mail");
+				newItem = {
+					ProcessedData1: data1Ref.current.value,
+					ProcessedData2: data2Ref.current.value,
+					ProcessedData3: data3Ref.current.value,
+					Mode: "",
+				};
+				break;
+		}
+
+		if (newItem) {
+			setItems([...items, newItem]);
+		}
 	}
 
 	return (
 		<div className="flex">
 			<div className="ml-8 mb-4 flex w-3/12 items-center text-center mt-8 flex-col gap-4">
-				<h3 className="text-3xl m-0">{Information}</h3>
-				<p>{Data1}</p>
+				<h3 className="text-3xl m-0">{information}</h3>
+				<p>{data1}</p>
 				<input
 					className="rounded-lg outline-none p-1 bg-slate-200"
 					type="input"
 					required
 					ref={data1Ref}
-					placeholder={`type ${Data1}`}
+					placeholder={`type ${data1}`}
 				/>
-				<p>{Data2}</p>
+				<p>{data2}</p>
 				<input
 					className="rounded-lg outline-none p-1 bg-slate-200"
 					type="input"
 					required
 					ref={data2Ref}
-					placeholder={`type ${Data2}`}
+					placeholder={`type ${data2}`}
 				/>
-				<p>{Data3}</p>
+				<p>{data3}</p>
 				<input
 					className="rounded-lg outline-none p-1 bg-slate-200"
 					type="input"
 					required
 					ref={data3Ref}
-					placeholder={`type ${Data3}`}
+					placeholder={`type ${data3}`}
 				/>
 				<button
 					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={SetInformation}
+					onClick={() => handleButtonClick("Education")}
 				>
-					Send
-				</button>
-				<button onClick={() => handleButtonClick("Education")}>
 					Add Education
 				</button>
-				<button onClick={() => handleButtonClick("Certificates")}>
+				<button
+					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+					onClick={() => handleButtonClick("Certificates")}
+				>
 					Add Certificates
 				</button>
-				<button onClick={() => handleButtonClick("Skills")}>Add Skills</button>
+				<button
+					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+					onClick={() => handleButtonClick("Skills")}
+				>
+					Add Skills
+				</button>
 			</div>
-			<AddItem
-				ProcessedData1={UserData1}
-				ProcessedData2={UserData2}
-				ProcessedData3={UserData3}
-				Mode={BtnValue}
-			/>
+			<div>
+				{items.map((item, index) => (
+					<AddItem
+						key={index}
+						ProcessedData1={item.ProcessedData1}
+						ProcessedData2={item.ProcessedData2}
+						ProcessedData3={item.ProcessedData3}
+						Mode={item.Mode}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }
-
-GetInformation.propTypes = {
-	Information: PropTypes.string.isRequired,
-	Data1: PropTypes.string.isRequired,
-	Data2: PropTypes.string.isRequired,
-	Data3: PropTypes.string.isRequired,
-};
 
 export default GetInformation;
