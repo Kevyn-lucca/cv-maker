@@ -86,36 +86,51 @@ function GetInformation() {
 					ref={data3Ref}
 					placeholder={`type ${data3}`}
 				/>
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={() => handleButtonClick("Education")}
-				>
-					Add Education
-				</button>
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={() => handleButtonClick("Certificates")}
-				>
-					Add Certificates
-				</button>
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={() => handleButtonClick("Skills")}
-				>
-					Add Skills
-				</button>
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={() => handleButtonClick("")}
-				>
-					Basic information
-				</button>
-				<button
-					className="w-32 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
-					onClick={DisplayData}
-				>
-					Add to cv
-				</button>
+				<div className="flex gap-2 flex-wrap justify-items-center">
+					<button
+						className=" size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={() => handleButtonClick("Education")}
+					>
+						<img
+							src="src/assets/education-learning-19-svgrepo-com.svg"
+							alt="Education Button"
+						/>
+					</button>
+					<button
+						className="size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={() => handleButtonClick("Certificates")}
+					>
+						<img
+							src="src/assets/education-learning-24-svgrepo-com.svg"
+							alt="Certification button"
+						/>
+					</button>
+					<button
+						className="size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={() => handleButtonClick("Skills")}
+					>
+						<img src="src/assets/skills-svgrepo-com.svg" alt="Skills button" />
+					</button>
+					<button
+						className="size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={() => handleButtonClick("")}
+					>
+						<img
+							src="src/assets/user-svgrepo-com.svg"
+							alt="Basic information button"
+						/>
+					</button>
+					<button
+						className="w-40 h-20 ml-24 flex text-center bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={DisplayData}
+					>
+						<img
+							src="src/assets/plus-large-svgrepo-com.svg"
+							alt="Add to cv button"
+						/>
+						<p className="mt-5">Add to cv </p>
+					</button>
+				</div>
 			</div>
 			<div>
 				{items.map((item, index) => (
