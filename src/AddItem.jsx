@@ -28,6 +28,22 @@ export function AddItem({
 			case "Skills":
 				setContent(
 					<div>
+						<h1 className="text-center font-bold text-4xl underline">
+							{" "}
+							Skills
+						</h1>
+						<ul>
+							{items.map((item, index) => (
+								<li key={index}>{item}</li>
+							))}
+						</ul>
+						<button onClick={deleteSection}>Delete Section</button>
+					</div>
+				);
+				break;
+			case "":
+				setContent(
+					<div>
 						<h1>Skills</h1>
 						<ul>
 							{items.map((item, index) => (
@@ -44,9 +60,9 @@ export function AddItem({
 						<h1 className="text-center font-bold text-4xl underline">
 							{items[0]}
 						</h1>
-						<p>
+						<p className="text-lg">
 							{items[1]}/ {items[2]}
-						</p>{" "}
+						</p>
 						<button onClick={deleteSection}>Delete Section</button>
 					</div>
 				);

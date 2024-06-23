@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { AddItem } from "./AddItem";
 
 function GetInformation() {
@@ -11,6 +13,7 @@ function GetInformation() {
 	const data1Ref = useRef(null);
 	const data2Ref = useRef(null);
 	const data3Ref = useRef(null);
+	const itemsRef = useRef(null);
 
 	function DisplayData() {
 		let newItem = null;
@@ -32,30 +35,47 @@ function GetInformation() {
 				setData1("School");
 				setData2("Major");
 				setData3("Date");
-
 				break;
 			case "Skills":
 				setInformation("Skills");
 				setData1("a major skill");
 				setData2("a major skill");
 				setData3("a major skill");
-
 				break;
 			case "Certificates":
 				setInformation("Certificates");
 				setData1("a certificate");
 				setData2("a certificate");
 				setData3("a certificate");
-
 				break;
 			default:
 				setInformation("Basic information");
 				setData1("Name");
 				setData2("Linkedin");
 				setData3("E-mail");
-
 				break;
 		}
+	}
+
+	function hideButtons() {
+		const buttons = itemsRef.current.querySelectorAll("button");
+		buttons.forEach((button) => (button.style.display = "none"));
+	}
+
+	function showButtons() {
+		const buttons = itemsRef.current.querySelectorAll("button");
+		buttons.forEach((button) => (button.style.display = ""));
+	}
+
+	function downloadDivAsPDF() {
+		hideButtons();
+		html2canvas(itemsRef.current).then((canvas) => {
+			const imgData = canvas.toDataURL("image/png");
+			const pdf = new jsPDF();
+			pdf.addImage(imgData, "PNG", 0, 0);
+			pdf.save("Your resume.pdf");
+			showButtons();
+		});
 	}
 
 	return (
@@ -121,7 +141,7 @@ function GetInformation() {
 						/>
 					</button>
 					<button
-						className="w-40 h-20 ml-24 flex text-center bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						className="w-40 h-20 ml-2 flex text-center bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
 						onClick={DisplayData}
 					>
 						<img
@@ -130,12 +150,19 @@ function GetInformation() {
 						/>
 						<p className="mt-5">Add to cv </p>
 					</button>
+					<button
+						className="w-40 h-20 flex text-center bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						onClick={downloadDivAsPDF}
+					>
+						Download as PDF
+					</button>
 				</div>
 			</div>
-			<div>
+			<div ref={itemsRef}>
 				{items.map((item, index) => (
 					<AddItem
 						key={index}
+						className="add-item"
 						ProcessedData1={item.ProcessedData1}
 						ProcessedData2={item.ProcessedData2}
 						ProcessedData3={item.ProcessedData3}
