@@ -6,29 +6,32 @@ import { AddItem } from "./AddItem";
 function GetInformation() {
 	const [information, setInformation] = useState("Basic information");
 	const [data1, setData1] = useState("Name");
-	const [data2, setData2] = useState("Linkedin");
+	const [data2, setData2] = useState("LinkedIn");
 	const [data3, setData3] = useState("E-mail");
 	const [items, setItems] = useState([]);
 
 	const data1Ref = useRef(null);
 	const data2Ref = useRef(null);
 	const data3Ref = useRef(null);
+	const data4Ref = useRef(null);
 	const itemsRef = useRef(null);
 
 	function DisplayData() {
-		let newItem = null;
-		newItem = {
+		let newItem = {
 			ProcessedData1: data1Ref.current.value,
 			ProcessedData2: data2Ref.current.value,
 			ProcessedData3: data3Ref.current.value,
+			ProcessedData4: data4Ref.current ? data4Ref.current.value : "",
 			Mode: information,
 		};
-		if (newItem) {
-			setItems([...items, newItem]);
-		}
+		setItems([...items, newItem]);
 	}
 
 	function handleButtonClick(value) {
+		if (data4Ref.current) {
+			data4Ref.current.style.display = "block";
+		}
+
 		switch (value) {
 			case "Education":
 				setInformation("Education");
@@ -37,6 +40,9 @@ function GetInformation() {
 				setData3("Date");
 				break;
 			case "Skills":
+				if (data4Ref.current) {
+					data4Ref.current.style.display = "none";
+				}
 				setInformation("Skills");
 				setData1("a major skill");
 				setData2("a major skill");
@@ -51,7 +57,7 @@ function GetInformation() {
 			default:
 				setInformation("Basic information");
 				setData1("Name");
-				setData2("Linkedin");
+				setData2("LinkedIn");
 				setData3("E-mail");
 				break;
 		}
@@ -106,9 +112,15 @@ function GetInformation() {
 					ref={data3Ref}
 					placeholder={`type ${data3}`}
 				/>
+				<p>Description</p>
+				<textarea
+					className="rounded-lg outline-none p-1 bg-slate-200"
+					ref={data4Ref}
+					placeholder={`type a short description`}
+				/>
 				<div className="flex gap-2 flex-wrap justify-items-center">
 					<button
-						className=" size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
+						className="size-20 bg-sky-500/50 hover:bg-cyan-600 rounded-2xl p-2"
 						onClick={() => handleButtonClick("Education")}
 					>
 						<img
@@ -158,7 +170,7 @@ function GetInformation() {
 					</button>
 				</div>
 			</div>
-			<div ref={itemsRef}>
+			<div className="shadow" ref={itemsRef}>
 				{items.map((item, index) => (
 					<AddItem
 						key={index}
@@ -166,6 +178,7 @@ function GetInformation() {
 						ProcessedData1={item.ProcessedData1}
 						ProcessedData2={item.ProcessedData2}
 						ProcessedData3={item.ProcessedData3}
+						ProcessedData4={item.ProcessedData4}
 						Mode={item.Mode}
 					/>
 				))}
