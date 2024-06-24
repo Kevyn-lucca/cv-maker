@@ -27,9 +27,11 @@ export function AddItem({
 							<p>{items[1]}</p>
 							<p>{items[2]}</p>
 						</div>
-						<h2 className="font-bold text-2xl underline">About</h2>
 						<p>{items[3]}</p>
-						<button onClick={deleteSection}>Delete Section</button>
+						<button
+							className="w-4 h-4 bg-red-500/50 hover:bg-red-600 rounded-2xl p-2"
+							onClick={deleteSection}
+						></button>
 					</div>
 				);
 				break;
@@ -38,15 +40,18 @@ export function AddItem({
 					<div>
 						<h1 className="font-bold text-2xl underline">Skills</h1>
 						<ul className="list-disc">
-							{items.map((item, index) => (
+							{items.slice(0, -1).map((item, index) => (
 								<li key={index}>{item}</li>
 							))}
 						</ul>
-						<button onClick={deleteSection}>Delete Section</button>
+						<button
+							className="w-4 h-4 bg-red-500/50 hover:bg-red-600 rounded-2xl p-2"
+							onClick={deleteSection}
+						></button>
 					</div>
 				);
 				break;
-			case "Cerificates":
+			case "Certificates":
 				setContent(
 					<div>
 						<h1 className="font-bold text-2xl underline">Certificates</h1>
@@ -55,7 +60,10 @@ export function AddItem({
 								<li key={index}>{item}</li>
 							))}
 						</ul>
-						<button onClick={deleteSection}>Delete Section</button>
+						<button
+							className="w-4 h-4 bg-red-500/50 hover:bg-red-600 rounded-2xl p-2"
+							onClick={deleteSection}
+						></button>
 					</div>
 				);
 				break;
@@ -65,10 +73,15 @@ export function AddItem({
 						<h1 className="text-center font-bold text-4xl underline">
 							{items[0]}
 						</h1>
-						<p className="text-lg">
+						<p className="text-lg text-center">
 							{items[1]}/ {items[2]}
 						</p>
-						<button onClick={deleteSection}>Delete Section</button>
+						<h2 className="font-bold text-2xl underline">About</h2>
+						<p>{items[3]}</p>
+						<button
+							className="w-4 h-4 bg-red-500/50 hover:bg-red-600 rounded-2xl p-2"
+							onClick={deleteSection}
+						></button>
 					</div>
 				);
 		}
